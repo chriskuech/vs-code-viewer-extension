@@ -1,0 +1,25 @@
+{
+  "name": "vs-code-viewer-extension",
+  "scripts": {
+    "build": "webpack && shx cp ./src/manifest.json ./src/popup.html ./src/favicon.png ./dist",
+    "clean-and-build": "npm run clean && npm run build",
+    "clean": "shx rm -Rf dist/*",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/chrome": "0.0.95",
+    "css-loader": "^3.4.2",
+    "file-loader": "^5.0.2",
+    "monaco-editor": "^0.20.0",
+    "monaco-editor-webpack-plugin": "^1.9.0",
+    "shx": "^0.3.2",
+    "style-loader": "^1.1.3",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.5",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  }
+}

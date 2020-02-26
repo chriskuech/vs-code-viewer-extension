@@ -1,0 +1,30 @@
+{
+    "manifest_version": 2,
+    "name": "VS Code Viewer",
+    "description": "View code and data in VS Code's editor.",
+    "version": "0.0.1",
+    "author": "Chris Kuech",
+    "content_scripts": [
+        {
+            "js": [
+                "srv/bootstrap.bundle.js"
+            ],
+            "matches": [
+                "<all_urls>"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "browser_action": {
+        "default_icon": "favicon.png",
+        "default_popup": "popup.html",
+        "default_title": "VS Code Viewer"
+    },
+    "web_accessible_resources": [
+        "srv/*"
+    ],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "permissions": [
+        "activeTab"
+    ]
+}
