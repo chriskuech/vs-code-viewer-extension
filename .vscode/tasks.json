@@ -4,20 +4,14 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "type": "npm",
-            "script": "clean-and-build",
+            "label": "Build",
+            "type": "shell",
+            "command": "pwsh ./Build-Extension.ps1",
+            "group": "build",
             "problemMatcher": [
-                "$eslint-compact"
-            ],
-            "group": "build"
-        },
-        {
-            "type": "npm",
-            "script": "install",
-            "problemMatcher": [
-                "$eslint-compact"
-            ],
-            "group": "build"
+                "$eslint-compact",
+                "$eslint-stylish"
+            ]
         }
     ]
 }

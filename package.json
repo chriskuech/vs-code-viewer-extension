@@ -1,13 +1,21 @@
 {
   "name": "vs-code-viewer-extension",
-  "scripts": {
-    "build": "webpack && shx cp ./src/manifest.json ./src/popup.html ./src/favicon.png ./dist",
-    "clean-and-build": "npm run clean && npm run build",
-    "clean": "shx rm -Rf dist/*",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
+  "displayName": "VS Code Viewer",
+  "description": "The unofficial browser extension port of VS Code for viewing programming language files and data files.  The extension automatically detects if you are opening a raw code or data file and opens the contents within a VS Code Viewer page with basic language support for 60+ languages.  Right+click to discover the command pallet, document formatter and other VS Code editor features supported in the Viewer.",
   "license": "MIT",
+  "keywords": [
+    "vs",
+    "code",
+    "json",
+    "formatter",
+    "viewer",
+    "editor",
+    "xml"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chriskuech/vs-code-viewer-extension"
+  },
   "dependencies": {
     "@types/chrome": "0.0.95",
     "css-loader": "^3.4.2",

@@ -6,11 +6,23 @@
             background: black;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             color: #fafafa;
-            font-size: 1.7em;
+            font-size: 1.3em;
+            height: fit-content;
+            width: 280px;
         }
 
         body {
+            height: fit-content;
             padding: 0.7em;
+            text-align: justify;
+        }
+
+        h1 {
+            font-weight: normal;
+        }
+
+        p {
+            font-weight: lighter;
         }
 
         a:any-link {
@@ -18,13 +30,12 @@
         }
 
         a:any-link.button {
-            display: block;
-            text-align: center;
+            display: inline-block;
             font-size: 1.7em;
+            border-radius: 0.5px;
         }
 
         img {
-            margin: 1em 3em;
             width: 130px;
             background: #5b93fc;
         }
@@ -33,14 +44,16 @@
 
 <body>
     <h1>VS Code Viewer</h1>
-    <p>An unofficial port of <a href="https://github.com/microsoft/monaco-editor">VS Code's editor component</a> to a
-        browser extension for automatically viewing programming language files and data files with VS Code's default
-        language support.
+    <p>
+        The unofficial browser extension port of VS Code for automatically viewing programming language
+        files and data files.
     </p>
-    <p>Documentation, Source, Bugs, Feedback &mdash;</p>
-    <a class="button" href="https://github.com/chriskuech/vs-code-viewer-extension">
-        <img src="./GitHub_Logo.png" />
-    </a>
+    <p>Documentation, Source, Bugs, and Feedback at</p>
+    <p style="text-align: center">
+        <a class="button" href="https://github.com/chriskuech/vs-code-viewer-extension" target="_blank">
+            <img src="./GitHub_Logo.png" />
+        </a>
+    </p>
 </body>
 
 </html>
