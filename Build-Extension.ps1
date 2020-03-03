@@ -16,4 +16,4 @@ webpack
 Copy-Item -Path "src/*" -Exclude "*.ts" -Destination $BuildContainer -Recurse
 
 # Package
-Compress-Archive -Path "$BuildContainer/*" -DestinationPath "$PackageName.zip"
+Compress-Archive -Path "$BuildContainer/*" -DestinationPath "$PackageName.zip" -Force
