@@ -9,6 +9,8 @@ const isDefaultViewer = () => {
 const removeDefautViewer = () => {
     document.body.removeChild(document.querySelector("pre"));
 
+    document.documentElement.style.height = "100%"
+    document.body.style.height = "100%"
     document.body.style.margin = "0";
     document.body.style.padding = "0";
     document.body.style.overflow = "hidden";
