@@ -1,51 +1,84 @@
+/**
+ * The browser will render raw code in a <pre> element by default. We look for a
+ * lone <pre> element to determine whether to bootstrap the viewer. If there is a
+ * lone <pre> element, we bootstrap the viewer by removing the default viewer and
+ * adding the VS Code viewer. The VS Code viewer is run in an iframe with
+ * configuration passed using `window.postMessage`.
+ */
 
-const isDefaultViewer = () => {
-    const unexpectedElements = document.querySelectorAll("body>*:not(pre), body>*>*");
-    const valueContainer = document.querySelector("body>pre");
-
-    return Boolean(!unexpectedElements.length && valueContainer);
+type VsCodeViewerConfig = {
+  content: string;
+  contentType: string;
+  fileExtension: string;
+  prefersDarkTheme: boolean;
 };
 
-const removeDefautViewer = () => {
-    document.body.removeChild(document.querySelector("pre"));
-
-    document.body.style.margin = "0";
-    document.body.style.padding = "0";
-    document.body.style.overflow = "hidden";
+class VsCodeViewerError extends Error {
+  constructor(message: string) {
+    super(message);
+  }
 }
 
-const addVsCodeViewer = (config) => {
-    const receiveMessage = (event: MessageEvent) => {
-        console.log("MessageEvent", event);
+const isDefaultViewer = () => {
+  const unexpectedElements = document.querySelectorAll(
+    "body>*:not(pre), body>*>*"
+  );
+  const valueContainer = document.querySelector("body>pre");
 
-        if (event.data.ready) {
-            iframe.contentWindow.postMessage({ config }, "*");
-        }
-    };
+  return Boolean(!unexpectedElements.length && valueContainer);
+};
 
-    const url = chrome.runtime.getURL("srv/index.html");
-    console.log(url);
+const addVsCodeViewer = (config: VsCodeViewerConfig) => {
+  const receiveMessage = (event: MessageEvent) => {
+    console.log("MessageEvent", event);
 
-    window.addEventListener("message", receiveMessage, false);
+    if (event.data.ready) {
+      const { contentWindow } = iframe;
 
-    const iframe = document.createElement("iframe");
-    iframe.sandbox.add("allow-scripts", "allow-same-origin");
-    iframe.style.width = "100vw";
-    iframe.style.height = "100vh";
-    iframe.style.display = "block";
-    iframe.style.overflow = "hidden";
-    iframe.style.border = "none";
-    iframe.src = url;
-    document.body.appendChild(iframe);
-}
+      if (!contentWindow) {
+        throw new VsCodeViewerError("No contentWindow found.");
+      }
+
+      contentWindow.postMessage({ config }, "*");
+    }
+  };
+
+  window.addEventListener("message", receiveMessage, false);
+
+  const iframe = document.createElement("iframe");
+  iframe.sandbox.add("allow-scripts", "allow-same-origin", "allow-popups");
+  iframe.style.width = "100vw";
+  iframe.style.height = "100vh";
+  iframe.style.display = "block";
+  iframe.style.overflow = "hidden";
+  iframe.style.border = "none";
+  document.body.appendChild(iframe);
+
+  iframe.src = chrome.runtime.getURL("srv/index.html");
+
+  return iframe;
+};
+
+/**
+ * Main
+ */
 
 if (isDefaultViewer()) {
-    addVsCodeViewer({
-        content: document.querySelector("pre").innerText,
-        contentType: document.contentType.toLowerCase(),
-        prefersDarkTheme: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
-        fileExtension: "." + document.location.pathname.split('.').pop(),
-    });
+  console.log("Bootstrapping VS Code viewer...");
 
-    removeDefautViewer();
+  const preElement = document.querySelector("pre");
+  if (!preElement) {
+    throw new VsCodeViewerError("No <pre> element found.");
+  }
+
+  addVsCodeViewer({
+    content: preElement.innerText,
+    contentType: document.contentType.toLowerCase(),
+    prefersDarkTheme:
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches,
+    fileExtension: "." + document.location.pathname.split(".").pop(),
+  });
+
+  preElement.style.display = "none";
 }

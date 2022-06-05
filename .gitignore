@@ -4,3 +4,4 @@ node_modules/
 
 *.zip
 *.pem
+.DS_Store
