@@ -19,7 +19,7 @@
   "scripts": {
     "clean": "rm -R ./dist ./*.zip",
     "build": "webpack && cp ./package/* ./dist",
-    "zip": "zip ./vs-code-viewer-extension.zip ./dist"
+    "zip": "cd dist && zip -r ../vs-code-viewer-extension.zip **"
   },
   "dependencies": {
     "@types/chrome": "0.0.95",
