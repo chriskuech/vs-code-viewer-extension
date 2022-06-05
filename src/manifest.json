@@ -1,34 +1,26 @@
 {
-    "manifest_version": 2,
-    "name": "VS Code Viewer",
-    "author": "Chris Kuech",
-    "description": "The unofficial browser extension port of VS Code for automatically viewing programming language files and data files.",
-    "icons": {
-        "128": "icon-128.png",
-        "300": "icon-300.png"
-    },
-    "version": "0.0.1",
-    "content_scripts": [
-        {
-            "js": [
-                "srv/bootstrap.bundle.js"
-            ],
-            "matches": [
-                "<all_urls>"
-            ],
-            "run_at": "document_end"
-        }
-    ],
-    "browser_action": {
-        "default_icon": "icon-300.png",
-        "default_popup": "popup.html",
-        "default_title": "VS Code Viewer"
-    },
-    "web_accessible_resources": [
-        "srv/*"
-    ],
-    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-    "permissions": [
-        "activeTab"
-    ]
+  "manifest_version": 2,
+  "name": "VS Code Viewer",
+  "author": "Chris Kuech",
+  "description": "The unofficial browser extension port of VS Code for automatically viewing programming language files and data files.",
+  "icons": {
+    "128": "icon-128.png",
+    "300": "icon-300.png"
+  },
+  "version": "0.0.1",
+  "content_scripts": [
+    {
+      "js": ["srv/bootstrap.bundle.js"],
+      "matches": ["<all_urls>"],
+      "run_at": "document_end"
+    }
+  ],
+  "browser_action": {
+    "default_icon": "icon-300.png",
+    "default_popup": "popup.html",
+    "default_title": "VS Code Viewer"
+  },
+  "web_accessible_resources": ["srv/*"],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "permissions": ["activeTab"]
 }
