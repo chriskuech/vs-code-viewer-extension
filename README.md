@@ -9,4 +9,11 @@ VS Code Viewer is an unofficial port of [VS Code's editor component](https://git
 ## Limitations
 
 * **No extension support.** Extensions can't be supported until [Monaco](https://github.com/microsoft/monaco-editor) supports extensions.
-* **Allow scripts.** The extension is served in an iframe within the parent page, so the page must allow scripts.  Some sites (like GitHub) prevent viewing raw code with scripts for security reasons.
+* **Allow scripts.** The extension is served in an iframe within the parent page, so the page must allow scripts.  Some sites (like GitHub) prevent viewing raw code with scripts for security reasons. See [#32](https://github.com/chriskuech/vs-code-viewer-extension/issues/32).
+
+## Contributing
+Building the package.
+```bash
+npm run clean
+npm run build && npm run zip
+```
