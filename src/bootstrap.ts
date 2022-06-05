@@ -6,8 +6,6 @@
  * configuration passed using `window.postMessage`.
  */
 
-import "./popup.html";
-
 type VsCodeViewerConfig = {
   content: string;
   contentType: string;
@@ -21,16 +19,6 @@ class VsCodeViewerError extends Error {
   }
 }
 
-const getPreElement = () => {
-  const preElement = document.querySelector("pre");
-
-  if (!preElement) {
-    throw new VsCodeViewerError("No <pre> element found.");
-  }
-
-  return preElement;
-};
-
 const isDefaultViewer = () => {
   const unexpectedElements = document.querySelectorAll(
     "body>*:not(pre), body>*>*"
@@ -38,15 +26,6 @@ const isDefaultViewer = () => {
   const valueContainer = document.querySelector("body>pre");
 
   return Boolean(!unexpectedElements.length && valueContainer);
-};
-
-const removeDefautViewer = () => {
-  const preElement = getPreElement();
-  document.body.removeChild(preElement);
-
-  document.body.style.margin = "0";
-  document.body.style.padding = "0";
-  document.body.style.overflow = "hidden";
 };
 
 const addVsCodeViewer = (config: VsCodeViewerConfig) => {
@@ -64,20 +43,20 @@ const addVsCodeViewer = (config: VsCodeViewerConfig) => {
     }
   };
 
-  const url = chrome.runtime.getURL("srv/index.html");
-  console.log(url);
-
   window.addEventListener("message", receiveMessage, false);
 
   const iframe = document.createElement("iframe");
-  iframe.sandbox.add("allow-scripts", "allow-same-origin");
+  iframe.sandbox.add("allow-scripts", "allow-same-origin", "allow-popups");
   iframe.style.width = "100vw";
   iframe.style.height = "100vh";
   iframe.style.display = "block";
   iframe.style.overflow = "hidden";
   iframe.style.border = "none";
-  iframe.src = url;
   document.body.appendChild(iframe);
+
+  iframe.src = chrome.runtime.getURL("srv/index.html");
+
+  return iframe;
 };
 
 /**
@@ -85,7 +64,12 @@ const addVsCodeViewer = (config: VsCodeViewerConfig) => {
  */
 
 if (isDefaultViewer()) {
-  const preElement = getPreElement();
+  console.log("Bootstrapping VS Code viewer...");
+
+  const preElement = document.querySelector("pre");
+  if (!preElement) {
+    throw new VsCodeViewerError("No <pre> element found.");
+  }
 
   addVsCodeViewer({
     content: preElement.innerText,
@@ -96,5 +80,5 @@ if (isDefaultViewer()) {
     fileExtension: "." + document.location.pathname.split(".").pop(),
   });
 
-  removeDefautViewer();
+  preElement.style.display = "none";
 }
