@@ -9,7 +9,7 @@ $ErrorActionPreference = "Stop"
 $env:PATH = $NpmBinPath + [IO.Path]::PathSeparator + $env:PATH
 
 # Clean
-Remove-Item -Path "$BuildContainer/*" -Recurse
+Get-ChildItem "$BuildContainer/*" | Remove-Item -Recurse
 
 # Build
 webpack
