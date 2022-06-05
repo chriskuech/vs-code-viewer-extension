@@ -1,3 +1,13 @@
+/**
+ * The browser will render raw code in a <pre> element by default. We look for a
+ * lone <pre> element to determine whether to bootstrap the viewer. If there is a
+ * lone <pre> element, we bootstrap the viewer by removing the default viewer and
+ * adding the VS Code viewer. The VS Code viewer is run in an iframe with
+ * configuration passed using `window.postMessage`.
+ */
+
+import "./popup.html";
+
 type VsCodeViewerConfig = {
   content: string;
   contentType: string;
@@ -47,7 +57,7 @@ const addVsCodeViewer = (config: VsCodeViewerConfig) => {
       const { contentWindow } = iframe;
 
       if (!contentWindow) {
-        throw new Error("No contentWindow found.");
+        throw new VsCodeViewerError("No contentWindow found.");
       }
 
       contentWindow.postMessage({ config }, "*");

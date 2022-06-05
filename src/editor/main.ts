@@ -1,9 +1,6 @@
-// import { editor, languages } from "monaco-editor";
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 import "monaco-editor/esm/vs/basic-languages/monaco.contribution.js";
 import "./index.html";
-
-type Language = monaco.languages.ILanguageExtensionPoint;
 
 const receiveMessageEvent = (event: MessageEvent) => {
   console.log("MessageEvent", event);
@@ -12,7 +9,8 @@ const receiveMessageEvent = (event: MessageEvent) => {
     const { content, contentType, fileExtension, prefersDarkTheme } =
       event.data.config;
 
-    const languages = monaco.languages.getLanguages();
+    type Language = monaco.languages.ILanguageExtensionPoint;
+    const languages: Language[] = monaco.languages.getLanguages();
     const byExt = (language: Language) =>
       language.extensions?.includes(fileExtension);
     const byType = (language: Language) =>
