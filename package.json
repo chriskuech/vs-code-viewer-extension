@@ -16,6 +16,10 @@
     "type": "git",
     "url": "https://github.com/chriskuech/vs-code-viewer-extension"
   },
+  "scripts": {
+    "build": "webpack",
+    "zip": "zip ./vs-code-viewer-extension.zip ./dist/*"
+  },
   "dependencies": {
     "@types/chrome": "0.0.95",
     "css-loader": "^3.4.2",
