@@ -7,7 +7,7 @@
     "128": "icon-128.png",
     "300": "icon-300.png"
   },
-  "version": "0.0.2",
+  "version": "0.0.3",
   "content_scripts": [
     {
       "js": ["srv/bootstrap.bundle.js"],
