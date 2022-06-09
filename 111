@@ -1,0 +1,45 @@
+
+} catch (SQLException | NumberFormatException
+             ex.printStackTrace();
+             JOptionPane.showMessageDialog(this, "格式
+                                           "Error",
+                                           JOptionPane.WARNING_MESSAGE);
+}
+});
+this.add(bt_save);
+this.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+}
+}
+class PasswordDialog extends JDialog {//修改密码对话框PasswordDialog(JFrame parents) {
+    super(parents);
+    this.setSize(300, 260);
+    this.setLocationRelativeTo(parents);
+    init();
+    this.setVisible(true);
+}
+void compare(String s1, String s2) throws Exception { if (!s1.equals(s2))
+        throw new Exception("两次输入的密码不同！");
+}
+void init() {
+    Container c = this.getContentPane();
+    c.setLayout(new GridLayout(5, 1, 0, 15));
+    JLabel label_1 = new JLabel("请输入你的新密码:");
+    this.add(label_1);
+    JTextField text_1 = new JTextField();
+    this.add(text_1);
+    JLabel label_2 = new JLabel("请再次输入你的密码:");
+    this.add(label_2);
+    JTextField text_2 = new JTextField();
+    this.add(text_2);
+    JButton bt_save = new JButton("保	存");
+    Connection conn = Main.sendConnection();
+    String sql = "update ssms.teacher set teacher.passcode =? where teacher.T_ID=?;";
+    bt_save.addActionListener(e -> { PreparedStatement pstmt = null; try {
+        pstmt = conn.prepareStatement(sql);
+        try {
+            compare(text_1.getText(),
+                    text_2.getText());
+            Integer.parseInt(input_ID));
+            pstmt.setString(1, text_1.getText());
+            pstmt.setInt(2,
+                         pstmt.executeUpdate(); JOptionPane.showMessageDialog(this, "修改成功！", "Succeed", JOptionPane.INFORMATION_MESSAGE);
